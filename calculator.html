@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .calculator {
+      background: #fff;
+      padding: 20px 25px 20px 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+      width: 280px;
+    }
+    .display {
+      background: #222;
+      color: #fff;
+      font-size: 2rem;
+      text-align: right;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      min-height: 40px;
+      word-break: break-all;
+      letter-spacing: 1px;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .buttons button {
+      padding: 18px 0;
+      font-size: 1.15rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #f0f0f0;
+      color: #222;
+      transition: background 0.2s;
+    }
+    .buttons button:hover {
+      background: #e0e0e0;
+    }
+    .buttons .operator {
+      background: #1e90ff;
+      color: #fff;
+    }
+    .buttons .operator:hover {
+      background: #0d6efd;
+    }
+    .buttons .equals {
+      background: #10b981;
+      color: #fff;
+      grid-column: span 2;
+    }
+    .buttons .equals:hover {
+      background: #059669;
+    }
+    .buttons .clear {
+      background: #ef4444;
+      color: #fff;
+    }
+    .buttons .clear:hover {
+      background: #dc2626;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button onclick="inputValue('(')">(</button>
+      <button onclick="inputValue(')')">)</button>
+      <button class="operator" onclick="inputValue('/')">÷</button>
+      <button onclick="inputValue('7')">7</button>
+      <button onclick="inputValue('8')">8</button>
+      <button onclick="inputValue('9')">9</button>
+      <button class="operator" onclick="inputValue('*')">×</button>
+      <button onclick="inputValue('4')">4</button>
+      <button onclick="inputValue('5')">5</button>
+      <button onclick="inputValue('6')">6</button>
+      <button class="operator" onclick="inputValue('-')">−</button>
+      <button onclick="inputValue('1')">1</button>
+      <button onclick="inputValue('2')">2</button>
+      <button onclick="inputValue('3')">3</button>
+      <button class="operator" onclick="inputValue('+')">+</button>
+      <button onclick="inputValue('0')">0</button>
+      <button onclick="inputValue('.')">.</button>
+      <button class="equals" onclick="calculateResult()">=</button>
+    </div>
+  </div>
+  <script>
+    let display = document.getElementById('display');
+    let expression = '';
+
+    function inputValue(val) {
+      if (expression === '' && (val === '*' || val === '/' || val === '+' || val === ')')) return;
+      if (expression === '0' && val !== '.') expression = '';
+      expression += val;
+      display.textContent = expression;
+    }
+
+    function clearDisplay() {
+      expression = '';
+      display.textContent = '0';
+    }
+
+    function calculateResult() {
+      try {
+        let result = eval(expression || '0');
+        display.textContent = result;
+        expression = result.toString();
+      } catch (e) {
+        display.textContent = 'Error';
+        expression = '';
+      }
+    }
+  </script>
+</body>
+</html>
